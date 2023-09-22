@@ -20,9 +20,23 @@ func Test_01(t *testing.T) {
 			log.Println(parsedTime.Unix())
 		}
 	}
+
 	if result, err := scrapings.GetGitHubLatestReleaseDate("yt-dlp", "yt-dlp"); err != nil {
 		t.Errorf(err.Error())
 	} else {
 		log.Println(result)
 	}
+
+	if result, err := scrapings.GetGitHubLatestReleaseDateUnixtimeByUserAndRep("yt-dlp/yt-dlp"); err != nil {
+		t.Errorf(err.Error())
+	} else {
+		log.Println(result)
+	}
+
+	if result, err := scrapings.GetGitHubLatestReleaseDateUnixtime("yt-dlp", "yt-dlp"); err != nil {
+		t.Errorf(err.Error())
+	} else {
+		log.Println(result)
+	}
+
 }

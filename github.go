@@ -6,6 +6,7 @@ package scrapings
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/anaskhan96/soup"
 )
@@ -33,6 +34,28 @@ func GetGitHubLatestReleaseDateByUserAndRep(userAndRep string) (result string, e
 func GetGitHubLatestReleaseDate(user string, repository string) (result string, err error) {
 	userAndRep := fmt.Sprintf("%s/%s", user, repository)
 	result, err = GetGitHubLatestReleaseDateByUserAndRep(userAndRep)
+
+	return
+}
+
+func GetGitHubLatestReleaseDateUnixtimeByUserAndRep(userAndRep string) (result int64, err error) {
+	timeStr, err := GetGitHubLatestReleaseDateByUserAndRep(userAndRep)
+	if err != nil {
+		return
+	} else {
+		var parsedTime time.Time
+		if parsedTime, err = time.Parse("2006-01-02T15:04:05Z07:00", timeStr); err != nil {
+			return
+		} else {
+			result = parsedTime.Unix()
+			return
+		}
+	}
+}
+
+func GetGitHubLatestReleaseDateUnixtime(user string, repository string) (result int64, err error) {
+	userAndRep := fmt.Sprintf("%s/%s", user, repository)
+	result, err = GetGitHubLatestReleaseDateUnixtimeByUserAndRep(userAndRep)
 
 	return
 }
